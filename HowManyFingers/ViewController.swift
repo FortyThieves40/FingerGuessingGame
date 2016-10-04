@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         ]
     
     @IBAction func guessButton(_ sender: AnyObject) {
-        if enteredGuess.text != nil {
+        if enteredGuess.text != nil , let _ = Int(enteredGuess.text!) {
             let diceRoll = arc4random_uniform(UInt32(nameImageArray.count))
             let convertedGuess = Int(enteredGuess.text!)
             if convertedGuess! >= 0 && convertedGuess! <= 5
