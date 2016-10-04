@@ -25,32 +25,35 @@ class ViewController: UIViewController {
         "IMG_2973"
         ]
     
-    @IBAction func guessButton(sender: AnyObject) {
+    @IBAction func guessButton(_ sender: AnyObject) {
         if enteredGuess.text != nil {
             let diceRoll = arc4random_uniform(UInt32(nameImageArray.count))
             let convertedGuess = Int(enteredGuess.text!)
-            if convertedGuess <= 0 && convertedGuess >= 5{
-               
+            if convertedGuess! >= 0 && convertedGuess! <= 5
+            {
                 let newString: String = nameImageArray[Int(diceRoll)]
                 fingerImage.image = UIImage(named: newString)
                 
-                if convertedGuess == Int(diceRoll) {
-                    
+                if convertedGuess == Int(diceRoll)
+                {
                     resultLabel.text = "Correct! The number of fingers was \(diceRoll)!"
                 }
-                else{
+                else
+                {
                     resultLabel.text = "Sorry! The correct number of fingers was \(diceRoll)!"
                 }
 
             }
-                
+            else
+            {
+                resultLabel.text = "!Invalid! Please enter a number from 0-5."
+            }
             
         }
-        else{
+        else
+        {
             resultLabel.text = "!Invalid! Please enter a number from 0-5."
         }
-    
     }
-    
 }
 
