@@ -9,11 +9,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     
     @IBOutlet weak var fingerImage: UIImageView!
     @IBOutlet weak var enteredGuess: UITextField!
+    {
+        didSet
+        {
+            enteredGuess.delegate = self
+        }
+    }
     @IBOutlet weak var resultLabel: UILabel!
     
     let nameImageArray = [
@@ -26,6 +32,9 @@ class ViewController: UIViewController {
         ]
     
     @IBAction func guessButton(_ sender: AnyObject) {
+        
+        self.enteredGuess?.resignFirstResponder()
+        
         if enteredGuess.text != nil , let _ = Int(enteredGuess.text!) {
             let diceRoll = arc4random_uniform(UInt32(nameImageArray.count))
             let convertedGuess = Int(enteredGuess.text!)
@@ -54,6 +63,17 @@ class ViewController: UIViewController {
         {
             resultLabel.text = "!Invalid! Please enter a number from 0-5."
         }
+    }
+    
+    public func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        textField.becomeFirstResponder()
+    }
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        self.enteredGuess?.resignFirstResponder()
+        return true;
     }
 }
 
